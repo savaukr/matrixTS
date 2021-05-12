@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, { FC } from "react";
 import { connect } from "react-redux";
 import DeleteRow from "../DeleteRow/DeleteRow";
 import {
@@ -9,22 +9,25 @@ import {
 } from "../../redux/actions";
 import { X } from "../../config/config";
 import "./Row.css";
-import { IRowItem, IStateMatrix, ActionsTypes } from "../../typesTS/typesTS";
-
+import {
+  IRowItem,
+  IStateMatrix,
+  ActionsTypes,
+  IAverage,
+} from "../../typesTS/typesTS";
 
 interface IRowProps {
-    matrix: IRowItem[][];
-    arrRow: IRowItem[];
-    footerClass: string;
-    ind:number;
-    increaseAmount(row:number, column:number): ActionsTypes;
-    mouseOverCeil(arr: IRowItem[][]): ActionsTypes;
-    mouseOverSum(arr: IRowItem[][]): ActionsTypes;
-    mouseOut(arr: IRowItem[][]): ActionsTypes;
-
+  matrix: IRowItem[][];
+  arrRow: IAverage[];
+  footerClass: string;
+  ind: number;
+  increaseAmount(row: number, column: number): ActionsTypes;
+  mouseOverCeil(arr: IRowItem[][]): ActionsTypes;
+  mouseOverSum(arr: IRowItem[][]): ActionsTypes;
+  mouseOut(arr: IRowItem[][]): ActionsTypes;
 }
 
-const Row:FC<IRowProps> = ({
+const Row: FC<IRowProps> = ({
   matrix,
   arrRow,
   footerClass,
@@ -34,27 +37,31 @@ const Row:FC<IRowProps> = ({
   mouseOverSum,
   mouseOut,
 }) => {
-  const getSumRow = (row:IRowItem[]):number => {
-    return row.reduce((summa:number, item:IRowItem):number => summa + item.amount, 0);
+  const getSumRow = (row: IAverage[]): number => {
+    return row.reduce(
+      (summa: number, item: IAverage): number => summa + item.amount,
+      0
+    );
   };
   const sum = getSumRow(arrRow);
 
-//   interface Event extends React.MouseEvent<HTMLDivElement> {
-//     dataset: string;
-// }
-//event:Event ????????????????
-  const increaseAmountHandle: React.MouseEventHandler = (event: any):void => {
+  //   interface Event extends React.MouseEvent{
+  //     dataset: {id:string};
+  // }
+  //event:Event ????????????????
+  const increaseAmountHandle = (event:any): void => {
+
     if (event.target.dataset.id[0] !== "f") {
-      const row = +event.target.dataset.id.split("x")[0];
-      const column = +event.target.dataset.id.split("x")[1];
+      const row = +event.currentTarget.dataset.id.split("x")[0];
+      const column = +event.currentTarget.dataset.id.split("x")[1];
       increaseAmount(row, column);
     }
   };
-  const mouseOverHandler: React.MouseEventHandler = (event:any ) => {
+  const mouseOverHandler: React.MouseEventHandler = (event: any) => {
     //мошук масиву  X найближчих Amount до вибраного
     //arr - state, elem - обраний елемент в state
-    const findXNearAmount = (arr:IRowItem[][], elem:IRowItem, X:number) => {
-      const arrSort:IRowItem[] = [];
+    const findXNearAmount = (arr: IRowItem[][], elem: IRowItem, X: number) => {
+      const arrSort: IRowItem[] = [];
       let k = 0;
       for (let i = 0; i < arr.length; i++) {
         for (let j = 0; j < arr[i].length; j++) {
@@ -62,16 +69,18 @@ const Row:FC<IRowProps> = ({
           k++;
         }
       }
-      arrSort.sort((a:IRowItem, b:IRowItem) => {
+      arrSort.sort((a: IRowItem, b: IRowItem) => {
         return a.amount - b.amount;
       });
 
-      const index = +arrSort.findIndex((item:IRowItem) => item.amount === elem.amount);
+      const index = +arrSort.findIndex(
+        (item: IRowItem) => item.amount === elem.amount
+      );
 
       let start, end; // початок та кінець найближчих Amount
-      start = index - Math.ceil(X / 2); 
+      start = index - Math.ceil(X / 2);
       end = index + Math.ceil(X / 2);
-  
+
       while (start < 0) {
         start++;
         end++;
@@ -80,7 +89,7 @@ const Row:FC<IRowProps> = ({
         start--;
         end--;
       }
-    
+
       if (X % 2) {
         const diffStart = arrSort[start]["amount"] - arrSort[index]["amount"];
         const diffEnd = arrSort[index]["amount"] - arrSort[end]["amount"];
@@ -88,7 +97,10 @@ const Row:FC<IRowProps> = ({
         else end--;
       }
       //щоб виділити обраний елемент замінити index+1 на  index
-      return [...arrSort.slice(start, index), ...arrSort.slice(index+1, end + 1)];
+      return [
+        ...arrSort.slice(start, index),
+        ...arrSort.slice(index + 1, end + 1),
+      ];
     };
 
     if (
@@ -100,7 +112,7 @@ const Row:FC<IRowProps> = ({
       const arr = matrix.concat();
       let arrNear = findXNearAmount(arr, arr[row][column], X);
 
-      arrNear.forEach((elem:IRowItem) => {
+      arrNear.forEach((elem: IRowItem) => {
         const i = +elem.id.split("x")[0];
         const j = +elem.id.split("x")[1];
         elem.bright = !elem.bright;
@@ -110,17 +122,19 @@ const Row:FC<IRowProps> = ({
     }
   };
 
-  const mouseOverSumHandler = (event:any) => {
+  const mouseOverSumHandler = (event: any) => {
     if (event.target.dataset.ind) {
       const arr = matrix.concat();
-      arr[ind].forEach((item:any) => {
-        item.part = !item.part;
-      });
+      if (ind < arr.length) {
+        arr[ind].forEach((item) => {
+          item.part = !item.part;
+        });
+      }
       mouseOverSum(arr);
     }
   };
 
-  const mouseOutHandler = (event:React.MouseEvent<HTMLDivElement>) => {
+  const mouseOutHandler = (event: React.MouseEvent<HTMLDivElement>) => {
     const arr = matrix.concat();
     mouseOverHandler(event);
     arr.forEach((row) => {
@@ -129,7 +143,7 @@ const Row:FC<IRowProps> = ({
     mouseOut(arr);
   };
 
-  const row = arrRow.map((item) => {
+  const row = arrRow.map((item: any) => {
     const styles = {
       height: Math.round((item.amount * 100) / sum) * 2 + "%",
     };
@@ -161,10 +175,7 @@ const Row:FC<IRowProps> = ({
   return (
     <div className="matrix-row">
       <div className="matrix-ceil sidebar-row">
-        <DeleteRow
-          footerClass={footerClass}
-          ind={ind}
-        />
+        <DeleteRow footerClass={footerClass} ind={ind} />
       </div>
       {row}
       <div
@@ -180,7 +191,7 @@ const Row:FC<IRowProps> = ({
   );
 };
 
-const mapStateToProps = (state:IStateMatrix) => {
+const mapStateToProps = (state: IStateMatrix) => {
   return {
     matrix: state.matrix.matrix,
   };
@@ -190,7 +201,7 @@ const mapDispatchToProps = {
   increaseAmount,
   mouseOverCeil,
   mouseOut,
-  mouseOverSum
+  mouseOverSum,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Row);

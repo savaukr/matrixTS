@@ -1,7 +1,7 @@
 import {ADD_ROW, DELETE_ROW, INCREASE_AMOUNT,
 		MOUSE_OVER_CEIL, MOUSE_OUT, MOUSE_OVER_SUM} from './types'
 import {M, N} from '../config/config'
-import { IRowItem, IStateMatrixHelp, IStateMatrix, ActionsTypes } from '../typesTS/typesTS'
+import { IRowItem, IStateMatrixHelp,  ActionsTypes } from '../typesTS/typesTS'
 
 function getMatrixRow(columns:number=N, i:number): IRowItem[] {
     const row=[]
