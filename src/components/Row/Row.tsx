@@ -6,25 +6,25 @@ import {
   mouseOverCeil,
   mouseOut,
   mouseOverSum,
-} from "../../redux/actions.js";
+} from "../../redux/actions";
 import { X } from "../../config/config";
 import "./Row.css";
-import { IRowItem, IStateMatrix } from "../../typesTS/typesTS";
+import { IRowItem, IStateMatrix, ActionsTypes } from "../../typesTS/typesTS";
 
 
-interface RowProps {
+interface IRowProps {
     matrix: IRowItem[][];
     arrRow: IRowItem[];
     footerClass: string;
     ind:number;
-    increaseAmount?: any;
-    mouseOverCeil?:any;
-    mouseOverSum?:any;
-    mouseOut?:any;
+    increaseAmount(row:number, column:number): ActionsTypes;
+    mouseOverCeil(arr: IRowItem[][]): ActionsTypes;
+    mouseOverSum(arr: IRowItem[][]): ActionsTypes;
+    mouseOut(arr: IRowItem[][]): ActionsTypes;
 
 }
 
-const Row:FC<RowProps> = ({
+const Row:FC<IRowProps> = ({
   matrix,
   arrRow,
   footerClass,
@@ -120,7 +120,7 @@ const Row:FC<RowProps> = ({
     }
   };
 
-  const mouseOutHandler = (event:any) => {
+  const mouseOutHandler = (event:React.MouseEvent<HTMLDivElement>) => {
     const arr = matrix.concat();
     mouseOverHandler(event);
     arr.forEach((row) => {

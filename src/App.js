@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { AddRow } from "./components/AddRow/AddRow";
-import { addRow } from "./redux/actions.js";
+import { addRow } from "./redux/actions";
 import Matrix from "./components/Matrix/Matrix";
 import { N } from "./config/config";
 
