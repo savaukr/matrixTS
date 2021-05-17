@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-//import App from "./App";
+import App from "./App";
 import { FormParamsMatrix } from './components/FormParamsMatrix/FormParamsMatrix'
 import reportWebVitals from "./reportWebVitals";
 import { createStore, compose } from "redux";
@@ -16,14 +16,14 @@ const store = createStore(
   )
 );
 
-const app = (
+export const app = (
   <Provider store={store}>
-    <FormParamsMatrix />
+    <App />
   </Provider>
 );
 
 ReactDOM.hydrate(
-  <React.StrictMode>{app}</React.StrictMode>,
+  <React.StrictMode>{<FormParamsMatrix />}</React.StrictMode>,
   document.getElementById("root")
 );
 
