@@ -1,8 +1,9 @@
 import {ADD_ROW, DELETE_ROW, INCREASE_AMOUNT,
-		MOUSE_OVER_CEIL, MOUSE_OUT, MOUSE_OVER_SUM} from './types.js'
+		MOUSE_OVER_CEIL, MOUSE_OUT, MOUSE_OVER_SUM} from './types'
 import {M, N} from '../config/config'
+import { IRowItem, IStateMatrixHelp,  ActionsTypes } from '../typesTS/typesTS'
 
-function getMatrixRow(columns=N, i) {
+function getMatrixRow(columns:number=N, i:number): IRowItem[] {
     const row=[]
     for (let j=0; j < columns; j++) {
       const amount = Math.floor( Math.random() * 1001)
@@ -11,7 +12,7 @@ function getMatrixRow(columns=N, i) {
     return row
   }
 
-  function getMatrix(rows=M,columns=N) {
+  function getMatrix(rows:number=M,columns:number=N):IRowItem[][] {
     let table = []
     for (let i=0; i< rows; i++) {
         table[i]= getMatrixRow(columns, i) 
@@ -19,11 +20,11 @@ function getMatrixRow(columns=N, i) {
    return table
   }
 
- const initialState = {
+ const initialState:IStateMatrixHelp = {
 	matrix:getMatrix() 
 }
 
-export const matrixReducer = (state = initialState, action) => {
+export const matrixReducer = (state = initialState, action: ActionsTypes): IStateMatrixHelp => {
 	let arr = state.matrix.concat()
 
 	switch (action.type) {

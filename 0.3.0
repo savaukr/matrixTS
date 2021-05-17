@@ -1,0 +1,14 @@
++ eslint-config-memcrab@1.0.3
++ eslint-plugin-simple-import-sort@7.0.0
++ eslint-plugin-react-hooks@4.2.0
++ eslint-plugin-react@7.21.5
++ eslint@7.16.0
++ @typescript-eslint/parser@4.2.0
++ eslint-plugin-no-loops@0.3.0
+added 13 packages from 5 contributors, removed 3 packages, updated 10 packages and audited 1984 packages in 15.982s
+
+135 packages are looking for funding
+  run `npm fund` for details
+
+found 167 moderate severity vulnerabilities
+  run `npm audit fix` to fix them, or `npm audit` for details

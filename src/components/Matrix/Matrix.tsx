@@ -1,12 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
 import { connect } from "react-redux";
 import Row from "../Row/Row";
 import "./Matrix.css";
+import {
+  IRowItem,
+  IAverage,
+  IStateMatrix,
+  IStateMatrixHelp,
+} from "../../typesTS/typesTS";
 
-const Matrix = ({ matrix, focusCeil, focusCeilSum, mouseOut }) => {
+interface IMatrixProps {
+  matrix: IRowItem[][];
+}
+
+const Matrix: FC<IMatrixProps> = ({ matrix }) => {
   const [matrixJSX, setMatrixJSX] = useState();
 
-  const getAverages = (arr) => {
+  const getAverages = (arr: IRowItem[][]): IAverage[] => {
     const arrAverage = [];
     const rowCount = arr.length || 0;
     const columnCount = arr[0].length || 0;
@@ -19,29 +29,23 @@ const Matrix = ({ matrix, focusCeil, focusCeilSum, mouseOut }) => {
     }
     return arrAverage;
   };
-  
-  function getMatrixJsx(arr) {
+
+  function getMatrixJsx(arr: IRowItem[][]): any {
     let table = [];
 
     for (let i = 0; i < arr.length; i++) {
-      table[i] = (
-        <Row
-          key={i}
-          arrRow={arr[i]}
-          ind={i}
-          focusCeilSum={focusCeilSum}
-          focusCeil={focusCeil}
-          mouseOut={mouseOut}
-        />
-      );
+      table[i] = <Row key={i} arrRow={arr[i]} ind={i} footerClass={""} />;
     }
     table[arr.length] = (
-      <Row key={arr.length} arrRow={getAverages(arr)} footerClass={"footer"} />
+      <Row
+        key={arr.length}
+        ind={arr.length}
+        arrRow={getAverages(arr)}
+        footerClass={"footer"}
+      />
     );
     return table;
   }
-
-  
 
   useEffect(() => {
     setMatrixJSX(getMatrixJsx(matrix));
@@ -60,7 +64,7 @@ const Matrix = ({ matrix, focusCeil, focusCeilSum, mouseOut }) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: IStateMatrix): IStateMatrixHelp => {
   return {
     matrix: state.matrix.matrix,
   };
