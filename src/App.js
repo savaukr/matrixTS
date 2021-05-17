@@ -1,18 +1,14 @@
-import React, { FC } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { AddRow } from "./components/AddRow/AddRow";
-import { addRow } from "./redux/actions";
+import { addRow } from "./redux/actions.js";
 import Matrix from "./components/Matrix/Matrix";
 import { N } from "./config/config";
-import { ActionsTypes, IRowItem, IStateMatrix } from "./typesTS/typesTS";
 
-interface IAppProps {
-  addRow(row: IRowItem[]): ActionsTypes;
-  matrix: IRowItem[][];
-}
 
-const App: FC<IAppProps> = ({ addRow, matrix }): any => {
-  function getMatrixRow(columns = N, i: number) {
+function App({ addRow, matrix }) {
+ 
+  function getMatrixRow(columns = N, i) {
     const row = [];
     for (let j = 0; j < columns; j++) {
       const amount = Math.floor(Math.random() * 1001);
@@ -21,10 +17,11 @@ const App: FC<IAppProps> = ({ addRow, matrix }): any => {
     return row;
   }
 
-  const addRowHandle = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const addRowHandle = (event) => {
     addRow(getMatrixRow(N, matrix.length));
   };
 
+  
   try {
     if (!matrix.length)
       return (
@@ -35,16 +32,16 @@ const App: FC<IAppProps> = ({ addRow, matrix }): any => {
       );
     return (
       <div className="container">
-        <Matrix matrix={matrix} />
+        <Matrix />
         <AddRow addRowHandle={addRowHandle} />
       </div>
     );
   } catch (err) {
     console.log(err.message);
   }
-};
+}
 
-const mapStateToProps = (state: IStateMatrix) => {
+const mapStateToProps = (state) => {
   return {
     matrix: state.matrix.matrix,
   };
