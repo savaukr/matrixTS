@@ -2,14 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { FormParamsMatrix } from './components/FormParamsMatrix/FormParamsMatrix'
 import reportWebVitals from "./reportWebVitals";
 import { createStore, compose } from "redux";
 import { Provider } from "react-redux";
 import { rootReducer } from "./redux/rootReducer";
+import {FormParamsMatrix} from './components/FormParamsMatrix/FormParamsMatrix'
+
+const preloadedState = ((window as any)).__PRELOADED_STATE__
+delete ((window as any)).__PRELOADED_STATE__
 
 const store = createStore(
   rootReducer,
+  preloadedState,
   compose(
     (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
       (window as any).__REDUX_DEVTOOLS_EXTENSION__()
@@ -23,7 +27,7 @@ export const app = (
 );
 
 ReactDOM.hydrate(
-  <React.StrictMode>{<FormParamsMatrix />}</React.StrictMode>,
+  <React.StrictMode>{app}</React.StrictMode>,
   document.getElementById("root")
 );
 

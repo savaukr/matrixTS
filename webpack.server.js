@@ -2,24 +2,24 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  entry: './server/index.js',
+  entry: path.resolve(__dirname, 'server/index.jsx'),
 
   target: 'node',
 
   externals: [nodeExternals()],
 
   output: {
-    path: path.resolve('server-build'),
+    path: path.resolve(__dirname, 'server-build'),
     filename: 'index.js'
   },
   resolve: {
-    extensions:['.js', '.json', '.tsx', 'ts']
+    extensions:['.js', 'jsx', '.json', '.tsx', 'ts']
 },
   module: {
     rules: [
       {
         test: /\.js$/,
-        use: 'babel-loader'
+        use: ['babel-loader']
       }, 
       {
         test: /\.css$/,
@@ -27,7 +27,17 @@ module.exports = {
       },
       {
         test: /\.tsx$/,
-        use: 'babel-loader'
+        use: ['babel-loader']
+      },
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: { 
+            loader:'babel-loader',
+            options:  {
+              presets: ['@babel/preset-env', '@babel/preset-react']
+            }
+        }
       }
     ]
   }
