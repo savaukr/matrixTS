@@ -12,6 +12,7 @@ import { FormParamsMatrix } from '../src/components/FormParamsMatrix/FormParamsM
 const PORT = process.env.PORT || 4000;
 const server = express();
 
+
 server.use(express.static('build'))
 server.use(express.static('static'))
 //server.use(handleRender)
@@ -55,6 +56,7 @@ function renderFullPage(html, preloadedState) {
    } else data = "Файл index.html відсутній "
    return data
 }
+
 
 server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
