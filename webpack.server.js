@@ -9,7 +9,7 @@ module.exports = {
   externals: [nodeExternals()],
 
   output: {
-    path: path.resolve(__dirname, 'server-build'),
+    path: path.resolve(__dirname, './server-build'),
     filename: 'index.js'
   },
   resolve: {
@@ -22,7 +22,7 @@ module.exports = {
         use: ['babel-loader']
       }, 
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: ['css-loader'],
       },
       {

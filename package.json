@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build --prefix",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev:build-server": "cross-env NODE_ENV=development webpack --config webpack.server.js --mode=development -w",
