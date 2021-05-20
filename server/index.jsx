@@ -13,6 +13,8 @@ import http from 'http'
 import url from 'url'
 const fs = require('fs').promises;
 
+const ignoreStyles = require('ignore-styles');
+
 const PORT = process.env.PORT || 4000;
 
 const server = http.createServer((req, res) => {
