@@ -16,7 +16,7 @@ const fs = require('fs').promises;
 const PORT = process.env.PORT || 4000;
 
 const server = http.createServer((req, res) => {
-   res.setHeader("Content-Type", "text/html; charset=utf-8;")
+  // res.setHeader("Content-Type", "text/html; charset=utf-8;")
    if ( /^\/\?rows=/.test(req.url) || /^\/$/.test(req.url)) {
      try {
          handleRender(req, res)
@@ -68,8 +68,8 @@ async function renderFullPage(html, preloadedState={}) {
                )}
          </script>
       `)
-      //data = data.replace(/href="\//g, `href="/build/`)
-      //data = data.replace(/src="\/static/g, `src="/build/static`)
+      data = data.replace(/href="\//g, `href="/build/`)
+      data = data.replace(/src="\/static/g, `src="/build/static`)
       return data
    } else return false
 

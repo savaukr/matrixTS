@@ -9,6 +9,7 @@ import { rootReducer } from "./redux/rootReducer";
 import {FormParamsMatrix} from './components/FormParamsMatrix/FormParamsMatrix'
 
 const preloadedState = ((window as any)).__PRELOADED_STATE__
+console.log(preloadedState)
 delete ((window as any)).__PRELOADED_STATE__
 
 const store = createStore(
