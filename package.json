@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/register": "^7.13.16",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
@@ -11,9 +14,21 @@
     "@types/react": "^17.0.5",
     "@types/react-dom": "^17.0.4",
     "@types/react-redux": "^7.1.16",
+    "babel-plugin-dynamic-import-node": "^2.3.3",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.5",
+    "i": "^0.3.6",
+    "md5-file": "^5.0.0",
+    "morgan": "^1.10.0",
+    "npm": "^7.13.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-frontload": "^1.0.3",
+    "react-helmet": "^6.1.0",
+    "react-loadable": "^5.5.0",
     "react-redux": "^7.2.3",
+    "react-router": "^5.2.0",
     "react-scripts": "4.0.3",
     "redux": "^4.0.5",
     "typescript": "^4.2.4",
@@ -26,7 +41,7 @@
     "eject": "react-scripts eject",
     "dev:build-server": "cross-env NODE_ENV=development webpack --config webpack.server.js --mode=development -w",
     "dev:start": "nodemon ./server-build/index.js",
-    "dev": "npm-run-all --parallel start dev:*"
+    "dev": "npm-run-all --parallel dev:*"
   },
   "eslintConfig": {
     "extends": [
@@ -34,7 +49,6 @@
       "react-app/jest"
     ]
   },
-  "proxy":"http://localhost:4000",
   "browserslist": {
     "production": [
       ">0.2%",
@@ -52,6 +66,8 @@
     "@babel/preset-env": "^7.14.2",
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
+    "@types/react-frontload": "^1.0.0",
+    "@types/react-loadable": "^5.5.5",
     "@typescript-eslint/parser": "^4.2.0",
     "babel-loader": "8.1.0",
     "cross-env": "^7.0.3",
@@ -62,6 +78,7 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "ignore-styles": "^5.0.1",
     "nodemon": "^2.0.7",
     "npm-run-all": "^4.1.5",
     "style-loader": "^2.0.0",
