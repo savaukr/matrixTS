@@ -52,7 +52,7 @@ export default (req, res) => {
         return res.status(404).end();
       }
       // Create a store (with a memory history) from our current url
-      console.log('req.url=',req.url)
+      // console.log('req.url=',req.url)
       //const  store  = createStore;
       
 
@@ -105,14 +105,16 @@ export default (req, res) => {
           // Otherwise, we carry on...
 
           // Let's give ourself a function to load all our page-specific JS assets for code splitting
-          const extractAssets = (assets, chunks) =>
+          const extractAssets = (assets, chunks) => 
             Object.keys(assets)
-              .filter(asset => chunks.indexOf(asset.replace('.js', '')) > -1)
+              .filter(asset => 
+                chunks.indexOf(asset.replace('.js', '')) > -1)
               .map(k => assets[k]);
-
           // Let's format those assets into pretty <script> tags
-          const extraChunks = extractAssets(manifest, modules).map(
-            c => `<script type="text/javascript" src="/${c.replace(/^\//, '')}"></script>`
+          const extraChunks = extractAssets(manifest.files, modules).map(
+            c => {
+              return `<script type="text/javascript" src="/${c.replace(/^\//, '')}"></script>`
+            }
           );
 
           // We need to tell Helmet to compute the right meta tags, title, and such
@@ -120,7 +122,7 @@ export default (req, res) => {
 
           // NOTE: Disable if you desire
           // Let's output the title, just to see SSR is working as intended
-          console.log('THE TITLE', helmet.title.toString());
+          // console.log('THE TITLE', helmet.title.toString());
 
           // Pass all this nonsense into our HTML formatting function above
           const html = injectHTML(htmlData, {
