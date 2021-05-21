@@ -14,20 +14,19 @@ import { Frontload } from 'react-frontload'
 let  preloadedState
 let storeTemp
 if (typeof window !== 'undefined') {
-  preloadedState = ((window as any)).__PRELOADED_STATE__
+  preloadedState = ((globalThis as any)).__PRELOADED_STATE__
   console.log(preloadedState)
-  delete ((window as any)).__PRELOADED_STATE__
+  delete ((globalThis as any)).__PRELOADED_STATE__
 
  storeTemp = createStore(
     rootReducer,
     preloadedState,
     compose(
-      (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-        (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+      (globalThis as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+        (globalThis as any).__REDUX_DEVTOOLS_EXTENSION__()
     )
   );
-} 
-else {
+} else {
   preloadedState = ((globalThis as any)).__PRELOADED_STATE__
   console.log(preloadedState)
   delete ((globalThis as any)).__PRELOADED_STATE__
@@ -36,8 +35,8 @@ else {
     rootReducer,
     preloadedState,
     compose(
-      (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-        (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+      (globalThis as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+        (globalThis as any).__REDUX_DEVTOOLS_EXTENSION__()
     )
   );
 }

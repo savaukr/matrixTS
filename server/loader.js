@@ -35,7 +35,7 @@ export default (req, res) => {
     data = data.replace('</head>', `${meta}</head>`);
     data = data.replace(
       '<div id="root"></div>',
-      `<div id="root">${body}</div><script>window.__PRELOADED_STATE__ = ${state}</script>${scripts.join('')}`
+      `<div id="root">${body}</div><script>globalThis.__PRELOADED_STATE__ = ${state}</script>${scripts.join('')}`
     );
 
     return data;
