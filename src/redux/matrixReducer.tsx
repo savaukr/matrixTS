@@ -12,7 +12,7 @@ function getMatrixRow(columns:number=N, i:number): IRowItem[] {
     return row
   }
 
-  function getMatrix(rows:number=M,columns:number=N):IRowItem[][] {
+  export function getMatrix(rows:number=M,columns:number=N):IRowItem[][] {
     let table = []
     for (let i=0; i< rows; i++) {
         table[i]= getMatrixRow(columns, i) 
@@ -51,8 +51,6 @@ export const matrixReducer = (state = initialState, action: ActionsTypes): IStat
 			return { ...state, matrix: [...action.payload]}
 		case MOUSE_OVER_SUM: 
 			return { ...state, matrix: [...action.payload]}
-		
-
 		default: return state
 	}
 }
